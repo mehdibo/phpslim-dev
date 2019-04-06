@@ -21,8 +21,8 @@ COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug-dev.ini
 # Start services
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
 	find /var/lib/mysql -type f -exec touch {} \; && service mysql start && \
-	service php7.3-fpm start && service nginx restart \
-	mysql -uroot -proot mysql  -e "update user set host='%' where user='root' and host='localhost';flush privileges; CREATE DATABASE test;"
+	service php7.3-fpm start && service nginx restart && \
+	mysql -uroot -proot mysql -e "UPDATE user SET host='%' WHERE user='root'; FLUSH privileges;"
 
 # Install extra tools
 RUN curl -sS https://getcomposer.org/installer -o composer-setup.php && \

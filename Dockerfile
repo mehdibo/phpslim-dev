@@ -21,7 +21,7 @@ COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug-dev.ini
 # Start services
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
 	find /var/lib/mysql -type f -exec touch {} \; && service mysql start && \
-	service php7.3-fpm start && service nginx restart && \
+	service php7.3-fpm start && mkdir /etc/nginx/conf && touch /etc/nginx/conf/env_vars && service nginx restart && \
 	mysql -uroot -proot mysql -e "UPDATE user SET host='%' WHERE user='root'; FLUSH privileges;"
 
 # Install extra tools

@@ -11,6 +11,7 @@ server {
     }
 
     location ~ \.php {
+	include conf/env_vars;
         include fastcgi_params;
         include snippets/fastcgi-php.conf;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;

@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# Import environment variables
+echo "Passing environment variables to Nginx"
+echo -n "" > /etc/nginx/conf/env_vars
+while read -r line; do
+	echo "Line: $line"
+	NAME=$(echo $line | cut -d "=" -f 1)
+	VALUE=$(echo $line | cut -d "=" -f 2-)
+	echo "fastcgi_param $NAME \"$VALUE\";" >> /etc/nginx/conf/env_vars
+done <<< "$(env)"
+
 # Start mysql
 echo "Starting mysql..."
 find /var/lib/mysql -type f -exec touch {} \; && service mysql start

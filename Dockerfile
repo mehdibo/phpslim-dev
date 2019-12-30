@@ -4,7 +4,7 @@ LABEL maintainer="mehdi.bounya@gmail.com"
 # Prepare system
 RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends apt-utils systemd \
 	vim wget net-tools git unzip curl iputils-ping telnet dnsutils \
-	software-properties-common apt-transport-https make; \
+	software-properties-common apt-transport-https make libgnutls28-dev libcurl4-gnutls-dev; \
 	LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 # Install needed packages

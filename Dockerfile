@@ -4,14 +4,15 @@ LABEL maintainer="mehdi.bounya@gmail.com"
 # Prepare system
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils systemd \
 	vim wget net-tools git unzip curl iputils-ping telnet dnsutils \
-	software-properties-common apt-transport-https; \
+	software-properties-common apt-transport-https make; \
 	LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 # Install needed packages
 RUN echo mysql-server mysql-server/root_password password root | debconf-set-selections;\
 	echo mysql-server mysql-server/root_password_again password root | debconf-set-selections;\
 	apt-get update && apt-get install -y mysql-server mysql-client libmysqlclient-dev nginx \
-	php7.3 php7.3-fpm php7.3-cli php7.3-mysql php7.3-curl php7.3-xml php7.3-mbstring php7.3-xdebug
+	php7.3 php7.3-fpm php7.3-cli php7.3-mysql php7.3-curl php7.3-xml php7.3-mbstring php7.3-xdebug \
+	php-dev php-pear
 
 # Copy config files
 COPY ./conf/nginx /etc/nginx/sites-available/default

@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 LABEL maintainer="mehdi.bounya@gmail.com"
 
 # Prepare system
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils systemd \
+RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-recommends apt-utils systemd \
 	vim wget net-tools git unzip curl iputils-ping telnet dnsutils \
 	software-properties-common apt-transport-https make; \
 	LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php

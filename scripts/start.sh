@@ -22,7 +22,7 @@ echo "Done."
 
 # Start PHP-fpm
 echo "Starting PHP-fpm..."
-service php7.3-fpm start
+service php7.4-fpm start
 status=$?
 if [ $status -ne 0 ]; then
   echo "Failed to start PHP-fpm: $status"

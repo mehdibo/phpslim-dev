@@ -11,18 +11,18 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y --no-install-reco
 RUN echo mysql-server mysql-server/root_password password root | debconf-set-selections;\
 	echo mysql-server mysql-server/root_password_again password root | debconf-set-selections;\
 	apt-get update && apt-get install -y mysql-server mysql-client libmysqlclient-dev nginx \
-	php7.3 php7.3-fpm php7.3-cli php7.3-mysql php7.3-curl php7.3-xml php7.3-mbstring php7.3-xdebug \
+	php7.4 php7.4-fpm php7.4-cli php7.4-mysql php7.4-curl php7.4-xml php7.4-mbstring php7.4-xdebug \
 	php-dev php-pear
 
 # Copy config files
 COPY ./conf/nginx /etc/nginx/sites-available/default
-COPY ./conf/php.ini /etc/php/7.3/cli/php.ini
+COPY ./conf/php.ini /etc/php/7.4/cli/php.ini
 COPY conf/xdebug.ini /usr/local/etc/php/conf.d/xdebug-dev.ini
 
 # Start services
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/mysql.conf.d/mysqld.cnf && \
 	find /var/lib/mysql -type f -exec touch {} \; && service mysql start && \
-	service php7.3-fpm start && mkdir /etc/nginx/conf && touch /etc/nginx/conf/env_vars && service nginx restart && \
+	service php7.4-fpm start && mkdir /etc/nginx/conf && touch /etc/nginx/conf/env_vars && service nginx restart && \
 	mysql -uroot -proot mysql -e "UPDATE user SET host='%' WHERE user='root'; FLUSH privileges;"
 
 # Install extra tools
